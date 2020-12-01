@@ -58,10 +58,11 @@
   },
   "repository": "LukeKoz/sfdx-npm",
   "scripts": {
+    "clean": "rimraf .oclif.manifest.json; rimraf yarn-error.log; rimraf package-lock.json",
     "lint": "tslint --project . --config tslint.json --format stylish",
-    "postpack": "rimraf oclif.manifest.json",
+    "postpublish": "npm run clean",
     "posttest": "tslint -p test -t stylish",
-    "prepack": "rimraf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
+    "prepublishOnly": "npm run clean && tsc -b && oclif-dev manifest && oclif-dev readme",
     "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
     "version": "oclif-dev readme && git add README.md"
   }
