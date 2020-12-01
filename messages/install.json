@@ -1,0 +1,10 @@
+{
+  "commandDescription": "Install an NPM module.",
+  "packageFlagDescription": "The name or URL of the package to install.",
+  "saveFlagDescription": "Save the package to your package.json file.",
+  "installingPackage": "Installing package: %s",
+  "packageInstallFailed": "Package failed to install: %s",
+  "missingPackageJson": "Missing package JSON file: %s",
+  "invalidSfdxProject": "The sfdx-project file is invalid.",
+  "invalidPackageForInstall": "The package you specified was invalid."
+}
