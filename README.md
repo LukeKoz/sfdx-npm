@@ -17,6 +17,10 @@ using Salesforce DX.
 
 This is an SFDX plugin. Install this plugin to your SFDX instance.
 
+```
+$ sfdx plugins:install sfdx-npm
+```
+
 ## Setup
 
 This works by installing packages into the directory where package.json exists and where you run the command in the current working
