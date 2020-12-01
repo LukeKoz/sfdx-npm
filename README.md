@@ -1,7 +1,8 @@
 sfdx-npm
 ========
 
-Add modules to your Salesforce projects with NPM.
+Install node modules into your packages and automatically remove duplicate modules across 2GP packages
+using Salesforce DX.
 
 [![Version](https://img.shields.io/npm/v/sfdx-npm.svg)](https://npmjs.org/package/sfdx-npm)
 [![CircleCI](https://circleci.com/gh/LukeKoz/sfdx-npm/tree/master.svg?style=shield)](https://circleci.com/gh/LukeKoz/sfdx-npm/tree/master)
@@ -12,47 +13,37 @@ Add modules to your Salesforce projects with NPM.
 [![Downloads/week](https://img.shields.io/npm/dw/sfdx-npm.svg)](https://npmjs.org/package/sfdx-npm)
 [![License](https://img.shields.io/npm/l/sfdx-npm.svg)](https://github.com/LukeKoz/sfdx-npm/blob/master/package.json)
 
-<!-- toc -->
-* [Debugging your plugin](#debugging-your-plugin)
-<!-- tocstop -->
-<!-- install -->
-<!-- usage -->
-```sh-session
-$ npm install -g sfdx-npm
-$ sfdx COMMAND
-running command...
-$ sfdx (-v|--version|version)
-sfdx-npm/0.0.0 win32-x64 node-v15.0.1
-$ sfdx --help [COMMAND]
-USAGE
-  $ sfdx COMMAND
-...
-```
-<!-- usagestop -->
-<!-- commands -->
+## Installation
 
-<!-- commandsstop -->
-<!-- debugging-your-plugin -->
-# Debugging your plugin
-We recommend using the Visual Studio Code (VS Code) IDE for your plugin development. Included in the `.vscode` directory of this plugin is a `launch.json` config file, which allows you to attach a debugger to the node process when running your commands.
+This is an SFDX plugin. Install this plugin to your SFDX instance.
 
-To debug the `hello:org` command: 
-1. Start the inspector
-  
-If you linked your plugin to the sfdx cli, call your command with the `dev-suspend` switch: 
-```sh-session
-$ sfdx hello:org -u myOrg@example.com --dev-suspend
+## Setup
+
+This works by installing packages into the directory where package.json exists and where you run the command in the current working
+directory.
+
+In the force-app directory, run the following to create a package.json file:
+
+`$ npm init`
+
+## Second Generation Packaging
+
+For second generation packaging, you will have a folder for each package. Each folder should contain their own package.json file.
+Follow the above instructions to create this file for each package.
+
+When you install node modules, this plugin will identify other instances of node modules across the whole project and remove any
+duplicates.
+
+## Usage
+
+To install a node module into your package, use the same parameters as `npm install`. Change the prefix to `sfdx npm:install`.
+
 ```
-  
-Alternatively, to call your command using the `bin/run` script, set the `NODE_OPTIONS` environment variable to `--inspect-brk` when starting the debugger:
-```sh-session
-$ NODE_OPTIONS=--inspect-brk bin/run hello:org -u myOrg@example.com
+$ sfdx npm:install my-module --save
 ```
 
-2. Set some breakpoints in your command code
-3. Click on the Debug icon in the Activity Bar on the side of VS Code to open up the Debug view.
-4. In the upper left hand corner of VS Code, verify that the "Attach to Remote" launch configuration has been chosen.
-5. Hit the green play button to the left of the "Attach to Remote" launch configuration window. The debugger should now be suspended on the first line of the program. 
-6. Hit the green play button at the top middle of VS Code (this play button will be to the right of the play button that you clicked in step #5).
-<br><img src=".images/vscodeScreenshot.png" width="480" height="278"><br>
-Congrats, you are debugging!
+
+## Roadmap
+
+- CLI command for `$ sfdx npm:version:match [package]`
+- CLI command for `$ sfdx npm:module:clean`
