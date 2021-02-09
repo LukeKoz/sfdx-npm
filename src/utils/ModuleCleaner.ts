@@ -147,20 +147,17 @@ To update the versions run the following command: "sfdx npm:version:match ${modu
         let winner: JsonMap;
 
         // Set the winner to the default package
-        this.log('removeDuplicates[0]');
         winner = ensureJsonMap(this.packages.find((pkg: JsonMap): boolean => pkg.default && packageNames.includes(ensureString(pkg.package))));
 
         // Set the winner to a dependency if also using the package
-        this.log('removeDuplicates[1]');
         const depWithModule: JsonMap = ensureJsonMap(this.dependencies.find((pkg: JsonMap): boolean => packageNames.includes(ensureString(pkg.package))) || {});
-        if (Object.keys(depWithModule)) {
+        if (depWithModule?.package) {
           winner = depWithModule;
         }
 
         // If there is a winner, remove all other instances of the module elsewhere
         if (winner) {
           // Find packages to remove the module for
-        this.log('removeDuplicates[2]');
           this.packages.forEach((pkg: JsonMap) => {
             const remove = packageNames.includes(ensureString(pkg.package))
               && pkg.package !== winner.package;
