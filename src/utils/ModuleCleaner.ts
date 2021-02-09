@@ -51,7 +51,6 @@ export default class ModuleCleaner {
    * List of packages from the sfdx project
    */
   get packages(): JsonArray {
-    this.log('ModuleCleaner.packages');
     return ensureJsonArray(this.sfdxProject.packageDirectories);
   }
 
@@ -59,7 +58,6 @@ export default class ModuleCleaner {
    * Get the default package
    */
   get defaultPackage(): JsonMap {
-    this.log('ModuleCleaner.defaultPackage');
     return ensureJsonMap(ensureJsonArray(this.packages).find((pkg: JsonMap): boolean => ensureBoolean(pkg.default)));
   }
 
@@ -67,7 +65,6 @@ export default class ModuleCleaner {
    * Get the dependency packages
    */
   get dependencies(): JsonArray {
-    this.log('ModuleCleaner.dependencies');
     return ensureJsonArray(project.getDependencies(this.sfdxProject));
   }
 
@@ -150,9 +147,11 @@ To update the versions run the following command: "sfdx npm:version:match ${modu
         let winner: JsonMap;
 
         // Set the winner to the default package
+        this.log('removeDuplicates[0]');
         winner = ensureJsonMap(this.packages.find((pkg: JsonMap): boolean => pkg.default && packageNames.includes(ensureString(pkg.package))));
 
         // Set the winner to a dependency if also using the package
+        this.log('removeDuplicates[1]');
         const depWithModule: JsonMap = ensureJsonMap(this.dependencies.find((pkg: JsonMap): boolean => packageNames.includes(ensureString(pkg.package))));
         if (depWithModule) {
           winner = depWithModule;
@@ -161,6 +160,7 @@ To update the versions run the following command: "sfdx npm:version:match ${modu
         // If there is a winner, remove all other instances of the module elsewhere
         if (winner) {
           // Find packages to remove the module for
+        this.log('removeDuplicates[2]');
           this.packages.forEach((pkg: JsonMap) => {
             const remove = packageNames.includes(ensureString(pkg.package))
               && pkg.package !== winner.package;

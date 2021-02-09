@@ -111,7 +111,7 @@ export default class Install extends SfdxCommand {
     /**
      * If we are installing a specific node module, prompt the user to specify the package to install into
      */
-    this.log('install.installModule');
+    this.log('install.installModule[0]');
     const packageDirectories: JsonCollection = ensureJsonArray(this.sfdxProject.packageDirectories);
     const defaultPackage: JsonMap = ensureJsonMap(packageDirectories.find((pkg: JsonMap) => pkg.default));
 
@@ -125,6 +125,7 @@ export default class Install extends SfdxCommand {
     installInto = installInto ? installInto.toLowerCase() : null;
 
     // Find the package
+    this.log('install.installModule[1]');
     const installingInto: JsonMap = ensureJsonMap(packageDirectories.find((pkg: JsonMap): boolean => {
       if (!installInto) {
         return ensureBoolean(pkg.default);
