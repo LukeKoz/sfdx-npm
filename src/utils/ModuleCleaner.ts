@@ -51,6 +51,7 @@ export default class ModuleCleaner {
    * List of packages from the sfdx project
    */
   get packages(): JsonArray {
+    this.log('ModuleCleaner.packages');
     return ensureJsonArray(this.sfdxProject.packageDirectories);
   }
 
@@ -58,6 +59,7 @@ export default class ModuleCleaner {
    * Get the default package
    */
   get defaultPackage(): JsonMap {
+    this.log('ModuleCleaner.defaultPackage');
     return ensureJsonMap(ensureJsonArray(this.packages).find((pkg: JsonMap): boolean => ensureBoolean(pkg.default)));
   }
 
@@ -65,6 +67,7 @@ export default class ModuleCleaner {
    * Get the dependency packages
    */
   get dependencies(): JsonArray {
+    this.log('ModuleCleaner.dependencies');
     return ensureJsonArray(project.getDependencies(this.sfdxProject));
   }
 
