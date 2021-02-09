@@ -1,7 +1,7 @@
 {
   "name": "sfdx-npm",
   "description": "Add modules to your Salesforce projects with NPM.",
-  "version": "0.0.30",
+  "version": "0.0.31",
   "author": "Luke Kozakewycz",
   "bugs": "https://github.com/LukeKoz/sfdx-npm/issues",
   "dependencies": {
