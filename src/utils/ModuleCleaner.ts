@@ -152,9 +152,11 @@ To update the versions run the following command: "sfdx npm:version:match ${modu
 
         // Set the winner to a dependency if also using the package
         this.log('removeDuplicates[1]');
-        const depWithModule: JsonMap = ensureJsonMap(this.dependencies.find((pkg: JsonMap): boolean => packageNames.includes(ensureString(pkg.package))));
-        if (depWithModule) {
-          winner = depWithModule;
+        if ( this.dependencies ) {
+          const depWithModule: JsonMap = ensureJsonMap(this.dependencies.find((pkg: JsonMap): boolean => packageNames.includes(ensureString(pkg.package))));
+          if (depWithModule) {
+            winner = depWithModule;
+          }
         }
 
         // If there is a winner, remove all other instances of the module elsewhere
