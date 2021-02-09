@@ -30,7 +30,7 @@ const getDependencies = (sfdxProject: JsonMap): JsonCollection => {
   const defaultPackage: JsonMap = ensureJsonMap(packageDirectories.find((pkg: JsonMap) => pkg.default));
 
   console.log('project.getDependencies(1)');
-  return (ensureJsonArray(defaultPackage.dependencies) || []).map((dep: JsonMap) => {
+  return (ensureJsonArray(defaultPackage.dependencies || []).map((dep: JsonMap) => {
     const packageName = ensureString(dep.package).split('@')[0];
     return packageDirectories.find((pkg: JsonMap) => packageName === pkg.package);
   });
